@@ -1,0 +1,29 @@
+﻿<MudLink Href="/shows">
+<MudCarousel Class="mud-width-full" Style="height:400px;" ShowArrows="@arrows" ShowBullets="@bullets" EnableSwipeGesture="@enableSwipeGesture" AutoCycle="@autocycle" TData="object" > 
+    <MudCarouselItem Transition="transition" Color="@Color.Dark">
+            <div class="d-flex" style="height:120%">
+                <MudImage Src="images/enjoy1.png" Width="1440" Height="548" Alt="Swedish Farm House" Class="rounded-lg" />
+            </div>
+    </MudCarouselItem>
+    
+    <MudCarouselItem Transition="transition" Color="@Color.Secondary" >
+        <div class="d-flex" style="height:100%">
+            <MudImage  Width="1440" Height="548" Src="images/enjoy2.png" Alt="Swedish Farm House" Class="rounded-lg" />
+        </div>
+    </MudCarouselItem>
+    <MudCarouselItem Transition="transition">
+        <div class="d-flex" style="height:100%">
+            <MudImage Width="1440" Height="548" Src="images/enjoy3.png" Alt="Swedish Farm House" Class="rounded-lg" />
+        </div>
+    </MudCarouselItem>
+</MudCarousel>
+</MudLink>
+
+
+@code{ 
+    private bool arrows = true;
+    private bool bullets = true;
+    private bool enableSwipeGesture = true;
+    private bool autocycle = true;
+    private Transition transition = Transition.Slide;
+}

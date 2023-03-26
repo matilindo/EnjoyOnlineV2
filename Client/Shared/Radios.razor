@@ -1,0 +1,56 @@
+﻿
+<MudContainer Height="50px" Width="50px">
+    <Radio imagenRadio="@radio.urlImagen" nombre="@radio.Nombre" urlRadio="@radio.urlRadio" ciudad="@radio.Ciudad" numero="@radio.Numero" pais="@radio.Pais"></Radio>
+
+<MudSelect Placeholder="Selecciona una radio" @bind-Value="@radio" HelperText="Radios"  CloseIcon="@Icons.Material.Filled.Flag" AdornmentColor="Color.Tertiary">
+    @foreach (var radio in radios)
+    {
+        <MudSelectItem T="Radio" Value="@radio">@radio.Nombre</MudSelectItem>
+    }
+</MudSelect>
+</MudContainer>
+
+
+
+
+
+@code {
+    List<Radio> radios;
+    private Radio radio ;
+    protected override async Task OnInitializedAsync()
+    {
+        radios = new List<Radio>()
+        {
+            new Radio("Del Sol","Montevideo","Uruguay","images/radios/delsol.jpg","https://delsol-1.nty.uy/?type=http&nocache=2780&dbl=0","99.5 FM"),
+            new Radio("Azul","Montevideo","Uruguay","images/radios/azul.jpg","https://azul-2.nty.uy/","101.9 FM"),
+            new Radio("Espectador","Montevideo","Uruguay","images/radios/espectador.jpg","https://espectador-1.nty.uy/","810 AM"),
+            new Radio("Aspen","Punta del Este","Uruguay","images/radios/aspen.jpg","https://streaming2.hostingmontevideo.com:7010/;","103.5 FM")
+        };
+        radio = radios[0];
+    }
+    public class Radio
+    {
+        public Radio()
+        {
+            
+        }
+        public Radio(string Nombre, string Ciudad, string Pais, string urlImagen, string urlRadio, string numero)
+        {
+            this.Nombre = Nombre;
+            this.Ciudad = Ciudad;
+            this.Pais = Pais;
+            this.urlRadio = urlRadio;
+            this.urlImagen = urlImagen;
+            this.Numero = numero;
+        }
+      
+        public readonly string Nombre;
+        public readonly string Ciudad;
+        public readonly string Pais;
+        public readonly string urlImagen;
+        public readonly string urlRadio;
+        public readonly string Numero;
+
+      
+    }
+}

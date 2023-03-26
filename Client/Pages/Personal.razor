@@ -1,0 +1,58 @@
+﻿@page "/personal"
+
+
+	<MudGrid Justify="Justify.Center">
+	
+		<MudItem lg="8">
+
+		<Personal_Listado_Busqueda OnSelectItem="Select"></Personal_Listado_Busqueda>
+		
+		</MudItem>
+	
+		<MudItem lg="4">
+		@if (SelectItem != null)
+		{
+			<Personal_detalle SelectedItem="SelectItem" UrlFoto=@UrlFoto></Personal_detalle>
+
+		}
+	</MudItem>
+	
+</MudGrid>
+
+@code
+{
+	Empleado SelectItem { get; set; }
+
+	public string UrlFoto;
+
+
+	 void Select(Empleado item)
+	{
+		
+		SelectItem = item;
+		 cargoFoto();
+
+	}
+
+	 private void  cargoFoto(  )
+	{
+		if (SelectItem.Nro_Funcionario < 10)
+		{
+			UrlFoto = "/00000" + SelectItem.Nro_Funcionario.ToString() + ".jpg";
+		}
+		else if (SelectItem.Nro_Funcionario > 9 && SelectItem.Nro_Funcionario < 100)
+		{
+			UrlFoto = "/0000" + SelectItem.Nro_Funcionario.ToString() + ".jpg";
+		}
+		else if (SelectItem.Nro_Funcionario > 99 && SelectItem.Nro_Funcionario < 1000)
+		{
+			UrlFoto = "/000" + SelectItem.Nro_Funcionario.ToString() + ".jpg";
+		}
+		else
+		{
+			UrlFoto = "/00" + SelectItem.Nro_Funcionario.ToString() + ".jpg";
+		}
+	}
+
+	}
+	

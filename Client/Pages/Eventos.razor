@@ -1,0 +1,160 @@
+﻿@page "/eventos"
+@inject IDialogService DialogService
+
+
+<MudPaper Class="d-flex justify-center flex-grow-1 gap-4" Elevation="0">
+    <h3><b style="color:#594ae2ff">Eventos Enjoy</b></h3>
+</MudPaper>
+<MudGrid  Justify="Justify.Center">
+    <MudItem lg="12">
+        <embed src="images/salones de eventos/brochure.pdf#zoom=100" type="application/pdf" width="100%" height="600px" />
+    </MudItem>
+
+    <MudItem>
+        <MudCard Style="width:100">
+            <MudCardMedia Image="images/salones de eventos/ptaeste2.jpg" Height="100" />
+    <MudCardContent>
+        <MudText Typo="Typo.h6"> Punta del Este</MudText>
+       
+    </MudCardContent>
+    <MudCardActions>
+
+                <MudButton OnClick="@((e) => OpenDialog(maxWidth,"puntadeleste"))" Variant="Variant.Text" Color="Color.Primary">Ver más...</MudButton>
+    </MudCardActions>
+</MudCard>
+    </MudItem>
+    <MudItem>
+        <MudCard >
+            <MudCardMedia Image="images/salones de eventos/rio2.jpg" Height="100" />
+            <MudCardContent>
+                <MudText Typo="Typo.h6">Río de Janeiro</MudText>
+                
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton OnClick="@((e) => OpenDialog(maxWidth,"riodejaneiro"))" Variant="Variant.Text" Color="Color.Primary">Ver más...</MudButton>
+            </MudCardActions>
+        </MudCard>
+    </MudItem>
+    <MudItem>
+       
+        <MudCard>
+            <MudCardMedia Image="images/salones de eventos/vdm4.jpg" Height="100" />
+            <MudCardContent>
+                <MudText Typo="Typo.h6">Viña del Mar</MudText>
+               
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton OnClick="@((e) => OpenDialog(maxWidth,"viñadelmar"))" Variant="Variant.Text" Color="Color.Primary">Ver más...</MudButton>
+            </MudCardActions>
+        </MudCard>
+    </MudItem>
+    <MudItem>
+        <MudCard>
+            <MudCardMedia Image="images/salones de eventos/ccb3.jpg" Height="100"  />
+            <MudCardContent>
+                <MudText Typo="Typo.h6">Caribe</MudText>
+                
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton OnClick="@((e) => OpenDialog(maxWidth,"caribe"))" Variant="Variant.Text" Color="Color.Primary">Ver más...</MudButton>
+            </MudCardActions>
+        </MudCard>
+    </MudItem>
+    <MudItem>
+        <MudCard>
+            <MudCardMedia Image="images/salones de eventos/ccb4.jpg" Height="100" />
+            <MudCardContent>
+                <MudText Typo="Typo.h6">Bariloche</MudText>
+               
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton OnClick="@((e) => OpenDialog(maxWidth,"bariloche"))" Variant="Variant.Text" Color="Color.Primary">Ver más...</MudButton>
+            </MudCardActions>
+        </MudCard>
+    </MudItem>
+    <MudItem>
+        <MudCard>
+            <MudCardMedia Image="images/salones de eventos/por2.jpg" Height="100" />
+            <MudCardContent>
+                <MudText Typo="Typo.h6">Portofino</MudText>
+               
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton OnClick="@((e) => OpenDialog(maxWidth,"portofino"))" Variant="Variant.Text" Color="Color.Primary">Ver más...</MudButton>
+            </MudCardActions>
+        </MudCard>
+    </MudItem>
+    <MudItem>
+        <MudCard>
+            <MudCardMedia Image="images/salones de eventos/montec2.jpg" Height="100" />
+            <MudCardContent>
+                <MudText Typo="Typo.h6">Montecarlo</MudText>
+                
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton OnClick="@((e) => OpenDialog(maxWidth,"montecarlo"))" Variant="Variant.Text" Color="Color.Primary">Ver más...</MudButton>
+            </MudCardActions>
+        </MudCard>
+    </MudItem>
+    <MudItem >
+        <MudCard>
+            <MudCardMedia Image="images/salones de eventos/ccb7.jpg" Height="100" />
+            <MudCardContent>
+                <MudText Typo="Typo.h6">Riviera</MudText>
+                
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton OnClick="@((e) => OpenDialog(maxWidth,"riviera"))" Variant="Variant.Text" Color="Color.Primary">Ver más...</MudButton>
+            </MudCardActions>
+        </MudCard>
+    </MudItem>
+</MudGrid>
+
+
+
+@code 
+{
+    DialogOptions maxWidth = new DialogOptions() { MaxWidth = MaxWidth.Medium, FullWidth = true };
+
+    private void OpenDialog(DialogOptions options, string salon)
+    {
+        switch (salon)
+        {
+            case "puntadeleste":
+                // code block
+                DialogService.Show<PuntaDelEste>("", options);
+                break;
+            case "riodejaneiro":
+                DialogService.Show<RioDeJaneiro>("", options);
+                // code block
+                break;
+            case "viñadelmar":
+                DialogService.Show<ViñaDelMar>("", options);
+                // code block
+                break;
+            case "bariloche":
+                DialogService.Show<Bariloche>("", options);
+                // code block
+                break;
+            case "portofino":
+                DialogService.Show<PortoFino>("", options);
+                // code block
+                break;
+            case "montecarlo":
+                DialogService.Show<Montecarlo>("", options);
+                // code block
+                break;
+            case "riviera":
+                DialogService.Show<Riviera>("", options);
+                // code block
+                break;
+            case "caribe":
+                DialogService.Show<Caribe>("", options);
+                // code block
+                break;
+            default:
+                // code block
+                break;
+        }
+    }
+}

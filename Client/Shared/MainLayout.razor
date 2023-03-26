@@ -1,0 +1,53 @@
+﻿@inherits LayoutComponentBase
+<MudThemeProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+@*Style="@($"background:#000000;")">
+*@
+<MudLayout>
+    <MudAppBar Style="@($"background:{Colors.Shades.Black};")">
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@(() => DrawerToggle())" />
+        <MudElement HtmlTag="a"
+                    Class="ma-0"
+                    Style="color:azure;font-weight:bold;"
+                    href="/"   
+                    rel="noopener noreferrer">
+            Enjoy Online
+        </MudElement>
+        <MudIconButton Icon="@Icons.Material.Outlined.People" Color="Color.Inherit" Href="/personal" />
+        <MudIconButton Icon="@Icons.Material.Outlined.Phone" Color="Color.Inherit" Href="/telefonos" />
+        <MudIconButton Icon="@Icons.Material.Outlined.MusicVideo" Color="Color.Inherit" Href="/shows" />
+        <MudIconButton Icon="@Icons.Material.Outlined.Restaurant" Color="Color.Inherit" Href="/restaurantes" />
+        <MudIconButton Icon="@Icons.Material.Filled.EmojiEvents" Color="Color.Inherit" Href="/eventos" />
+        <MudIconButton Icon="@Icons.Material.Outlined.CalendarMonth" Color="Color.Inherit" Href="/horarios" />
+        <MudIconButton Icon="@Icons.Material.Filled.EditCalendar" Color="Color.Inherit" Href="/horariosDrop" />
+        <MudSpacer />
+        <MudImage Src="images/Planeta_Enjoy.jpg" Height="60"></MudImage>
+        <MudSpacer />
+        <Clima></Clima>
+    </MudAppBar>
+    <MudDrawer @bind-Open="@_drawerOpen">
+        <MyNavMenu/>
+    </MudDrawer>
+    <MudMainContent>
+        <Slider></Slider>
+        <MudDivider></MudDivider>
+        <MudPaper Class="ma-5">
+            @Body   
+        </MudPaper>
+        
+    </MudMainContent>
+</MudLayout>
+
+
+
+@code {
+    [Parameter]
+    public bool _drawerOpen { get; set; } = true;
+
+    void DrawerToggle()
+    {
+        _drawerOpen = !_drawerOpen;
+    }
+}

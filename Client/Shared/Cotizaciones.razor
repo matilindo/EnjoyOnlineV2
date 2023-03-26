@@ -1,0 +1,28 @@
+﻿
+<MudGrid Justify="Justify.Center" >
+    <MudItem xs="10" Class="pa-4 ">
+      
+        <MudPaper Class="d-flex justify-center flex-grow-1 gap-4" Elevation="0" Style="@($"color:{Colors.Shades.Black};")">
+            <MudIcon Icon="@Icons.Material.Filled.AttachMoney" Title="Favorite" />
+
+            <MudText Typo="Typo.h5" Style="@($"color:{Colors.Shades.Black};")">COTIZACIONES</MudText>
+        
+        </MudPaper>
+    </MudItem>
+    <MudItem xs="4">
+        
+        <Moneda Money="DOLAR AMER." Imagen="usa.png"></Moneda>
+    </MudItem>
+    <MudItem xs="4">
+        
+        <Moneda Money="REAL" Imagen="brasil.png"></Moneda>
+    </MudItem>
+    <MudItem xs="4">
+        
+        <Moneda Money="PESO ARG." Imagen="arg.png"></Moneda>
+    </MudItem>
+</MudGrid>
+
+@code {
+
+}

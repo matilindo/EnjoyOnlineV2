@@ -1,0 +1,37 @@
+﻿
+<MudPaper Class="d-flex justify-center flex-grow-1 gap-4" Elevation="0">
+<MudCard>
+    <MudCardHeader>
+        <CardHeaderAvatar>
+                <MudImage Src="@UrlFoto" Height="100" ObjectFit=ObjectFit.Contain Class="rounded-circle" />
+        </CardHeaderAvatar>
+        <CardHeaderContent>
+                <MudText Typo="Typo.body1">@SelectedItem.Nombre @SelectedItem.Apellido</MudText>
+                <MudText Typo="Typo.body2"><b>N° Func: </b>@SelectedItem.Nro_Funcionario</MudText>
+        </CardHeaderContent>
+        <CardHeaderActions>
+            <MudIconButton Icon="@Icons.Material.Filled.ArrowRight" Color="Color.Default" />
+        </CardHeaderActions>
+    </MudCardHeader>  
+    <MudCardContent>
+            <MudText Typo="Typo.body2"><b>Sector: </b>@SelectedItem.Sector</MudText>
+        <MudText Typo="Typo.body2"><b>Cargo: </b>@SelectedItem.Cargo</MudText>
+    </MudCardContent>
+    <MudCardActions>
+        <MudIconButton Icon="@Icons.Material.Filled.Phone" Color="Color.Default" />
+        <MudIconButton Icon="@Icons.Material.Filled.Whatsapp" Color="Color.Default" />
+        <MudIconButton Icon="@Icons.Material.Filled.Email" Color="Color.Default" />
+    </MudCardActions>
+</MudCard>
+</MudPaper>
+
+   @code
+{
+    [Parameter]
+    public string UrlFoto{ get; set; }
+
+    [Parameter] 
+    public Empleado SelectedItem { get; set; }
+
+     
+   }

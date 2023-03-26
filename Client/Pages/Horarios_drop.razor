@@ -1,0 +1,102 @@
+﻿@page "/horariosDrop"
+
+@*<MudDropContainer T="DropItem" Items="_items" ItemsSelector="@((item,dropzone) => item.Identifier == dropzone)" ItemDropped="ItemUpdated" Class="d-flex flex-wrap flex-grow-1">
+    <ChildContent>
+        <MudDropZone T="DropItem" Identifier="Funcionarios" Class="rounded mud-background-gray pa-6 ma-8 flex-grow-1">
+            <MudText Typo="Typo.h6" Class="mb-4">Funcionarios</MudText>
+        </MudDropZone>
+        <MudDropZone T="DropItem" Identifier="Lunes" Class="rounded mud-background-gray pa-6 ma-8 flex-grow-1">
+            <MudText Typo="Typo.h6" Class="mb-4">Lunes</MudText>
+        </MudDropZone>
+        <MudDropZone T="DropItem" Identifier="Martes" Class="rounded mud-background-gray pa-6 ma-8 flex-grow-1">
+            <MudText Typo="Typo.h6" Class="mb-4">Martes</MudText>
+        </MudDropZone>
+        <MudDropZone T="DropItem" Identifier="Miercoles" Class="rounded mud-background-gray pa-6 ma-8 flex-grow-1">
+            <MudText Typo="Typo.h6" Class="mb-4">Miercoles</MudText>
+        </MudDropZone>
+        <MudDropZone T="DropItem" Identifier="Jueves" Class="rounded mud-background-gray pa-6 ma-8 flex-grow-1">
+            <MudText Typo="Typo.h6" Class="mb-4">Jueves</MudText>
+        </MudDropZone>
+        <MudDropZone T="DropItem" Identifier="Viernes" Class="rounded mud-background-gray pa-6 ma-8 flex-grow-1">
+            <MudText Typo="Typo.h6" Class="mb-4">Viernes</MudText>
+        </MudDropZone>
+        <MudDropZone T="DropItem" Identifier="Sabado" Class="rounded mud-background-gray pa-6 ma-8 flex-grow-1">
+            <MudText Typo="Typo.h6" Class="mb-4">Sabado</MudText>
+        </MudDropZone>
+        <MudDropZone T="DropItem" Identifier="Domingo" Class="rounded mud-background-gray pa-6 ma-8 flex-grow-1">
+            <MudText Typo="Typo.h6" Class="mb-4">Domingo</MudText>
+        </MudDropZone>
+    </ChildContent>
+    <ItemRenderer>
+        <MudPaper Elevation="25" Class="pa-4 my-4">@context.Name</MudPaper>
+    </ItemRenderer>
+</MudDropContainer>
+*@
+<MudDropContainer T="DropItem" Items="_items" CanDropClass="mud-border-info" NoDropClass="mud-border-error" CanDrop="@( (item,identifier ) => _items.Count(x => x.Identifier == identifier ) == 0)" ItemsSelector="@((item,dropzone) => item.Identifier == dropzone)" ItemDropped="ItemUpdated" Class="border-2 border-solid mud-border-lines-default">
+    <ChildContent>
+        @for(int r = 0; r < 8; r++)
+        {
+            var row = r.ToString();
+            <div class="d-flex">
+                @for (int c = 0; c < 8; c++)
+                {
+                    var col = c.ToString();
+                    <MudDropZone T="DropItem" Identifier="@($"{row}{col}")" DraggingClass="mud-theme-success" Class="d-flex justify-center align-center border-2 border-solid docs-gray-bg mud-border-lines-default" Style="height:64px;width:64px;"/>
+                }
+            </div>
+        }
+        <div class="d-flex flex-column flex-grow-1">
+        <MudDropZone T="DropItem" Identifier="Funcionarios" Class="rounded mud-background-gray pa-1 ma-1 flex-grow-1">
+            <MudText Typo="Typo.h6"> Funcionarios</MudText>
+        </MudDropZone>
+        </div>
+    </ChildContent>
+    <ItemRenderer>
+        <div class="d-flex justify-center align-center flex-grow-1">
+            <MudPaper Elevation="25" Class="pa-4 my-4">@context.Name</MudPaper>
+        </div>
+    </ItemRenderer>
+</MudDropContainer>
+
+@code {
+    private void ItemUpdated(MudItemDropInfo<DropItem> dropItem)
+    {
+        string posicion = dropItem.DropzoneIdentifier;
+        DropItem itemCopia = new DropItem()
+        {
+            Name = dropItem.Item.Name,
+            Identifier = posicion
+        };
+        _items.Add(itemCopia);
+        //dropItem.Item.Identifier = dropItem.DropzoneIdentifier;
+        
+    }
+
+    private List<DropItem> _items = new()
+    {
+        new DropItem(){ Name = "Matias Osuna", Identifier = "Funcionarios" },
+        new DropItem(){ Name = "Oscar Perez", Identifier = "Funcionarios" },
+        new DropItem(){ Name = "Anibal Lopez", Identifier = "Funcionarios" },
+        new DropItem(){ Name = "Ariel Acosta", Identifier = "Funcionarios" },
+        new DropItem(){ Name = "Germán Santana", Identifier = "Funcionarios" },
+        new DropItem(){ Name = "José Tejera", Identifier = "Funcionarios" },
+        new DropItem(){ Name = "Martin Aguilar", Identifier = "Funcionarios" },
+        new DropItem(){ Name = "Gustavo Dalmás", Identifier = "Funcionarios" },
+    };
+
+    public class DropItem
+    {
+        public string Name { get; init; }
+        public string Identifier { get; set; }
+    }
+
+  
+
+
+    private string[] DiasSemana = new string[]
+    {
+        "Lunes","Martes","Miércoles", "Jueves","Viernes","Sábado","Domingo"
+    };
+
+ 
+}

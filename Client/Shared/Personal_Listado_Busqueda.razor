@@ -1,0 +1,213 @@
+﻿
+
+@using System.Net.Http.Json
+@using EnjoyOnline.Shared.Models
+@inject HttpClient httpClient
+@inject IDialogService DialogService
+
+
+<style>
+    .selected {
+        background-color: #1E88E5 !important;
+    }
+
+        .selected > td {
+            color: white !important;
+        }
+
+            .selected > td .mud-input {
+                color: white !important;
+            }
+</style>
+
+
+
+<MudTable ServerData="@(new Func<TableState, Task<TableData<Empleado>>>(ServerReload))"
+          Dense="true" @ref="table" OnRowClick="RowClickEvent" T="Empleado">
+    <ToolBarContent>
+        <MudText Typo="Typo.h6"><h3><b Style="@($"color:#000000;")">Funcionarios Enjoy</b></h3></MudText>
+        <MudSpacer />
+        <MudTextField T="string" ValueChanged="@(s=>OnSearch(s))" Placeholder="Search" Adornment="Adornment.Start"
+                      AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField> 
+        <MudSwitch @onclick="CargarListado" @bind-Checked="@Basic_Switch2" Label="Activo" Color="Color.Primary"/>
+
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh><MudTableSortLabel SortLabel=" nr_field" T="Empleado">N° Funcionario</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortLabel="sign_field" T="Empleado">Apellido</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortLabel="name_field" T="Empleado">Nombre</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortLabel="position_field" T="Empleado">Departamento</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortLabel="mass_field" T="Empleado">Estado</MudTableSortLabel></MudTh>
+    </HeaderContent>
+    <RowTemplate >
+        <MudTd  DataLabel="Nr" >@context.Nro_Funcionario</MudTd>
+        <MudTd DataLabel="Sign">@context.Apellido</MudTd>
+        <MudTd DataLabel="Name">@context.Nombre</MudTd>
+        <MudTd DataLabel="Position">@context.Departamento</MudTd>
+        @if (context.Estado.Contains("ACTIVO"))
+        {
+            <MudTd DataLabel="Molar mass">@context.Estado.Substring(0,6)</MudTd>
+        }else{
+                    <MudTd DataLabel="Molar mass">@context.Estado.Substring(0,8)</MudTd>
+
+        }
+    </RowTemplate>
+    <NoRecordsContent>
+        <MudText></MudText>
+    </NoRecordsContent>
+    <LoadingContent>
+        <MudText>Cargando...</MudText>
+    </LoadingContent>
+    <PagerContent>
+        <MudTablePager />
+    </PagerContent>
+</MudTable>
+
+<MudDialog>
+    <DialogContent>
+        Dialog Content
+    </DialogContent>
+    <DialogActions>
+        <MudButton >Cancel</MudButton>
+        <MudButton Color="Color.Primary" >Ok</MudButton>
+    </DialogActions>
+</MudDialog>
+
+
+@code {
+    private IEnumerable<Empleado> empleados;
+    private MudTable<Empleado> table;
+    private Empleado primerEmpleado;
+    public bool Basic_Switch2 { get; set; } = true;
+
+    string activoApi;
+
+
+    private int totalItems;
+    private string searchString = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        primerEmpleado = await httpClient.GetFromJsonAsync<Empleado>("api/empleadoes/first");
+        await OnSelectItem.InvokeAsync(primerEmpleado);
+    }
+
+
+    /// <summary>
+    /// Here we simulate getting the paged, filtered and ordered data from the server
+    /// </summary>
+    private async Task<TableData<Empleado>> ServerReload(TableState state)
+    {
+        if (Basic_Switch2)
+        {
+            activoApi = "activos";
+        }
+        else
+        {
+            activoApi = "noactivos";
+        }
+        IEnumerable<Empleado> data = await httpClient.GetFromJsonAsync<List<Empleado>>($"api/empleadoes/{activoApi}");
+
+        await Task.Delay(300);
+        data = data.Where(element =>
+        {
+            if (string.IsNullOrWhiteSpace(searchString))
+                return true;
+            if (element.Nro_Funcionario.ToString().Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+            if (element.Nombre.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+
+            if (element.Apellido.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+            if (element.Departamento.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+            if ($"{element.Nro_Funcionario} {element.Departamento} {element.Estado}".Contains(searchString))
+                return true;
+            return false;
+        }).ToArray();
+        totalItems = data.Count();
+        switch (state.SortLabel)
+        {
+            case "nr_field":
+                data = data.OrderByDirection(state.SortDirection, o => o.Nro_Funcionario);
+                break;
+            case "sign_field":
+                data = data.OrderByDirection(state.SortDirection, o => o.Apellido);
+                break;
+            case "name_field":
+                data = data.OrderByDirection(state.SortDirection, o => o.Nombre);
+                break;
+            case "position_field":
+                data = data.OrderByDirection(state.SortDirection, o => o.Departamento);
+                break;
+            case "mass_field":
+                data = data.OrderByDirection(state.SortDirection, o => o.Estado);
+                break;
+        }
+
+        empleados = data.Skip(state.Page * state.PageSize).Take(state.PageSize).ToArray();
+        return new TableData<Empleado>() { TotalItems = totalItems, Items = empleados };
+    }
+
+    private void OnSearch(string text)
+    {
+        searchString = text;
+        table.ReloadServerData();
+    }
+
+    //extras
+    [Parameter]
+    public EventCallback<Empleado> OnSelectItem { get; set; }
+
+    async Task SelectItem(Empleado empleado)
+    {
+        await OnSelectItem.InvokeAsync(empleado);
+    }
+
+    //
+
+    private List<string> clickedEvents = new();
+    private int selectedRowNumber = -1;
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+
+    private void RowClickEvent(TableRowClickEventArgs<Empleado> tableRowClickEventArgs)
+    {
+        var options = new DialogOptions { CloseOnEscapeKey = true };
+        //DialogService.Show<MudDialog>(tableRowClickEventArgs.Item.Apellido, options);
+        SelectItem(tableRowClickEventArgs.Item);
+    }
+
+    private string SelectedRowClassFunc(Empleado empleado, int rowNumber)
+    {
+        if (selectedRowNumber == rowNumber)
+        {
+            selectedRowNumber = -1;
+
+            return string.Empty;
+        }
+        else if (table.SelectedItem != null && table.SelectedItem.Equals(empleado))
+        {
+            selectedRowNumber = rowNumber;
+
+            OnSelectItem.InvokeAsync(empleado);
+
+            return "selected";
+        }
+        else
+        {
+            return string.Empty;
+        }
+    }
+
+ 
+
+    private async Task CargarListado()
+    {
+        Basic_Switch2 = !Basic_Switch2;
+        await table.ReloadServerData(); ;
+
+        
+    }
+
+}

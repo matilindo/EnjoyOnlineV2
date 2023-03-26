@@ -1,0 +1,18 @@
+﻿<MudGrid>
+    <MudItem xs="12" md="12">
+        <MudText Typo="Typo.h6" GutterBottom="true">Novedades</MudText>
+        <MudPaper Width="100%">
+            <MudList Clickable="@Clickable" Dense="@Dense" DisableGutters="@Gutters">
+                <MudListItem Text="Single List Item" Icon="@Icons.Material.Filled.Bookmark" />
+                <MudListItem Text="Single List Item" Icon="@Icons.Material.Filled.Bookmark" IconColor="Color.Primary" />
+                <MudListItem Text="Single List Item" Icon="@Icons.Material.Filled.Bookmark" IconColor="Color.Secondary" />
+            </MudList>
+        </MudPaper>
+    </MudItem>
+</MudGrid>
+
+@code {
+    public bool Dense { get; set; }
+    public bool Clickable { get; set; }
+    public bool Gutters { get; set; }
+}

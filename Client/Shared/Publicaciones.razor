@@ -1,0 +1,151 @@
+﻿@using System.IO;
+@inject HttpClient Http
+
+
+<MudGrid>
+
+</MudGrid>
+<MudItem xs="12">
+    <MudPaper Class="d-flex justify-center flex-grow-1 gap-4 " Elevation="0" Style="@($"color:{Colors.Shades.Black};")">
+        <MudIcon Icon="@Icons.Material.Filled.MenuBook" Title="Favorite" />
+        <MudText Typo="Typo.h5" Style="@($"color:{Colors.Shades.Black};")">PUBLICACIONES</MudText>
+
+    </MudPaper>
+</MudItem>
+<MudItem >
+
+    <MudExpansionPanels MultiExpansion="true" >
+        <MudExpansionPanel Text="Novedades" Icon="@Icons.Material.Filled.Newspaper" >
+            <MudList Clickable="true" >
+                @foreach(var novedad in novedadesA)
+                {
+                    <MudListItem >
+                        <a href="Publicaciones/@novedades/@novedad" target="_blank">@novedad</a>
+                    </MudListItem>
+                   
+                }
+                
+            </MudList>
+        </MudExpansionPanel>
+        <MudExpansionPanel Text="Notas técnicas" Icon="@Icons.Material.Filled.EventNote" >
+        <MudList Clickable="true">
+                @foreach(var nota in notasA)
+                {
+                    <MudListItem >
+                        <a href="Publicaciones/@notas/@nota" target="_blank">@nota</a>
+                    </MudListItem>
+                   
+                }
+       </MudList>
+    </MudExpansionPanel>
+        <MudExpansionPanel Text="e-Learning" Icon="@Icons.Material.Filled.MenuBook" >
+            <MudList Clickable="true">
+                @foreach (var learn in elearningA)
+                {
+                            <MudListItem >
+                        <a href="Publicaciones/@elearning/@learn" target="_blank">@learn</a>
+                        </MudListItem>
+
+                }
+       </MudList>
+    </MudExpansionPanel>
+        <MudExpansionPanel Text="Formularios" Icon="@Icons.Material.Filled.FormatListNumbered">
+            <MudList Clickable="true">
+                @foreach (var form in formulariosA)
+                {
+                    <MudListItem>
+                        <a href="Publicaciones/@formularios/@form" target="_blank">@form</a>
+                    </MudListItem>
+
+                }
+            </MudList>
+    </MudExpansionPanel>
+        <MudExpansionPanel Text="Marketing" Icon="@Icons.Material.Filled.BusinessCenter" >
+            <MudList Clickable="true">
+                @foreach (var mark in marketingA)
+                {
+                    <MudListItem>
+                        <a href="Publicaciones/@marketing/@mark" target="_blank">@mark</a>
+                    </MudListItem>
+
+                }
+            </MudList>
+        </MudExpansionPanel>
+        <MudExpansionPanel Text="Procedimientos" Icon="@Icons.Material.Filled.PanToolAlt" >
+           <MudList Clickable="true">
+                @foreach (var proc in procedimientosA)
+                {
+                    <MudListItem >
+                        <a href="Publicaciones/@procedimientos/@proc" target="_blank">@proc</a>
+                        </MudListItem>
+                        <MudDivider></MudDivider>
+
+                }
+                <MudDivider></MudDivider>
+                <MudExpansionPanel Text="Procedimientos Casino" Icon="@Icons.Material.Filled.Casino">
+                <MudList Clickable="true">
+             
+                    @foreach (var procc in procedimientosAA)
+                    {
+                            <MudListItem>
+                                <a href="Publicaciones/@procedimientosCasino/@procc" target="_blank">@procc</a>
+                            </MudListItem>
+                                <MudDivider></MudDivider>
+                    }
+                </MudList>
+                </MudExpansionPanel>
+       </MudList>
+        </MudExpansionPanel>
+        <MudExpansionPanel Text="RRHH" Icon="@Icons.Material.Filled.Groups" >
+            <MudList Clickable="true">
+                @foreach (var rh in rrhhA)
+                {
+                    <MudListItem>
+                        <a href="Publicaciones/@rrhh/@rh" target="_blank">@rh</a>
+                    </MudListItem>
+                }
+            </MudList>
+        </MudExpansionPanel>
+    </MudExpansionPanels>
+
+</MudItem>
+
+
+@code 
+{   
+    private MudTheme Theme = new MudTheme();
+
+    public List<string> archivos { get; set; } = new List<string>();
+    string formularios = "FORMULARIOS";
+    string elearning = "E-LEARNING";
+    string marketing = "MARKETING";
+    string notas = "NOTAS TÉCNICAS";
+    string procedimientos = "PROCEDIMIENTOS";
+    string procedimientosCasino = "PROCEDIMIENTOS DE CASINO";
+    string rrhh = "RRHH";
+    string novedades = "NOVEDADES";
+
+    List<string> formulariosA { get; set; } = new List<string>();
+    List<string> elearningA { get; set; } = new List<string>();
+    List<string> marketingA { get; set; } = new List<string>();
+    List<string> notasA { get; set; } = new List<string>();
+    List<string> procedimientosA { get; set; } = new List<string>();
+    List<string> procedimientosAA { get; set; } = new List<string>();
+    List<string> rrhhA { get; set; } = new List<string>();
+    List<string> novedadesA { get; set; } = new List<string>();
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        formulariosA = await Http.GetFromJsonAsync<List<string>>($"api/publicaciones/archivos/{formularios}");
+        elearningA = await Http.GetFromJsonAsync<List<string>>($"api/publicaciones/archivos/{elearning}");
+        marketingA = await Http.GetFromJsonAsync<List<string>>($"api/publicaciones/archivos/{marketing}");
+        notasA = await Http.GetFromJsonAsync<List<string>>($"api/publicaciones/archivos/{notas}");
+        procedimientosA = await Http.GetFromJsonAsync<List<string>>($"api/publicaciones/archivos/{procedimientos}");
+        procedimientosAA = await Http.GetFromJsonAsync<List<string>>($"api/publicaciones/archivos/{procedimientosCasino}/{procedimientos}");
+        rrhhA = await Http.GetFromJsonAsync<List<string>>($"api/publicaciones/archivos/{rrhh}");
+        novedadesA = await Http.GetFromJsonAsync<List<string>>($"api/publicaciones/archivos/{novedades}");
+
+
+    }
+}

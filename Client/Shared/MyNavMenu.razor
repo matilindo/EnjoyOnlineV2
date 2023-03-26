@@ -1,0 +1,20 @@
+﻿<MudNavMenu Style="@($"color:{Colors.Shades.Black};")">
+    <MudNavLink Href="/" Match="NavLinkMatch.All"><h6 Style="color:#000000;">Dashboard</h6></MudNavLink>
+    <MudNavGroup Title="RRHH" Expanded="true">
+    <MudNavLink Href="/personal" Match="NavLinkMatch.Prefix">PERSONAL</MudNavLink>
+    </MudNavGroup>
+     <MudNavGroup Title="VENTAS" Expanded="true">
+    <MudNavLink Href="/eventos" Match="NavLinkMatch.Prefix">EVENTOS</MudNavLink>
+    </MudNavGroup>
+    <MudNavLink Href="/telefonos" Match="NavLinkMatch.Prefix">TELEFONÍA</MudNavLink>
+    <MudNavLink Href="/servers" Match="NavLinkMatch.Prefix">SEGURIDAD</MudNavLink>
+
+    <MudNavGroup Title="MI CUENTA" Expanded="true">
+        <MudNavLink Href="/horarios" Match="NavLinkMatch.Prefix">HORARIOS</MudNavLink>
+        <MudNavLink Href="/security" Match="NavLinkMatch.Prefix">CONTRATO</MudNavLink>
+    </MudNavGroup>
+</MudNavMenu>
+
+@code {
+
+}

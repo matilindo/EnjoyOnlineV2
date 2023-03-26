@@ -1,0 +1,58 @@
+﻿@page "/telefonos"
+@inject HttpClient Http
+
+<MudPaper Class="d-flex justify-center flex-grow-1 gap-4" Elevation="0">
+    <h3><b Style="@($"color:#000000;")">Teléfonos Enjoy</b></h3>
+</MudPaper>
+
+<MudSimpleTable Style="overflow-x: auto;">
+    <thead>
+        <tr>
+            @foreach (var h in headings)
+            {
+                <th>@h</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @if (telefonos == null)
+        {
+            <text>Cargando...</text>
+        }
+        else
+        {
+             @foreach (var telefono in telefonos!)
+        {
+            <tr>
+                <td>
+                    @telefono.Descripcion
+                </td>
+                <td>@telefono.Seccion</td>
+                <td>@telefono.Interno</td>
+                <td>@telefono.Beeper</td>
+            </tr>
+        }
+        }  
+    </tbody>
+</MudSimpleTable>
+
+@code {
+    Telefono[] telefonos;
+    string[] headings = { "Descripción", "Sección", "Interno", "Beeper" };
+
+   
+
+    protected override async Task OnInitializedAsync()
+    {
+        await CargarTelefonos();
+    }
+
+    async Task CargarTelefonos()
+    {
+        telefonos = await Http.GetFromJsonAsync<Telefono[]>("api/telefonos");
+    }
+
+
+}
+
+

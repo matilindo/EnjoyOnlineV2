@@ -1,0 +1,48 @@
+﻿
+<MudPaper Class="d-flex justify-center flex-grow-1 gap-4  " Elevation="0" Style="@($"color:{Colors.Shades.Black};")">
+    <MudIcon Icon="@Icons.Material.Filled.Radio" Title="Favorite" />
+    <MudText Typo="Typo.h5" Style="@($"color:{Colors.Shades.Black};")">RADIOS</MudText>
+</MudPaper>
+<MudCard>
+    <MudCardHeader>
+        <CardHeaderAvatar>
+            <MudAvatar Size="Size.Large" Rounded="true" Image="@imagenRadio"></MudAvatar>
+        </CardHeaderAvatar>
+        <CardHeaderContent>
+        <MudText Typo="Typo.caption">@nombre</MudText>
+        <MudText Typo="Typo.body2">@numero</MudText>
+        <MudText Typo="Typo.body2">@ciudad, @pais</MudText>
+        </CardHeaderContent>
+</MudCardHeader>
+    <MudCardContent>
+        <audio controls style="width:100%;"
+                       src="@urlRadio">
+                </audio>
+    </MudCardContent>
+    
+  
+</MudCard>
+@code {
+    [Parameter]
+    public string urlRadio { get; set; }
+
+    [Parameter]
+    public string imagenRadio { get; set; }
+
+    [Parameter]
+    public string nombre { get; set; }
+    [Parameter]
+    public string numero { get; set; }
+    [Parameter]
+    public string ciudad { get; set; }
+    [Parameter]
+    public string pais { get; set; }
+
+
+    ObjectFit ImageFit = ObjectFit.Cover;
+
+    void SetImageFit(ObjectFit value)
+    {
+        ImageFit = value;
+    }
+}

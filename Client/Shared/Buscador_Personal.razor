@@ -1,0 +1,63 @@
+﻿@using System.Net.Http.Json
+@using EnjoyOnline.Shared.Models
+@inject HttpClient httpClient
+
+<h3>Buscador</h3>
+
+<MudTextField @bind-Value="TextValue" Label="Standard" Variant="Variant.Text" Margin="Margin.Dense"></MudTextField>
+
+<MudButton Disabled="@_processing" OnClick="ProcessSomething" Variant="Variant.Filled" Color="Color.Primary">
+    @if (_processing)
+    {
+        <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true" />
+        <MudText Class="ms-2">Processing</MudText>
+    }
+    else
+    {
+        <MudText>Click me</MudText>
+    }
+</MudButton>
+
+
+<MudSelect T="string" Label="Sector" AnchorOrigin="Origin.BottomCenter">
+    <MudSelectItem Value="@("Finanzas")" />
+    <MudSelectItem Value="@("Areas Públicas")" />
+    <MudSelectItem Value="@("Sistemas")" />
+</MudSelect>
+<MudSelect T="string" Label="Datos" AnchorOrigin="Origin.BottomCenter">
+    <MudSelectItem Value="@("Número de funcionario")" />
+    <MudSelectItem Value="@("Nombre")" />
+    <MudSelectItem Value="@("Interno")" />
+</MudSelect>
+<MudSwitch @bind-Checked="@Basic_Switch1" Label="Activo"/>
+
+@code {
+    public string TextValue { get; set; }
+    public bool Basic_Switch1 { get; set; } = false;
+
+    [Parameter]
+    public Empleado[] empleados{ get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+
+
+    }
+
+    async Task CargoBusqueda()
+    {
+        empleados = await httpClient.GetFromJsonAsync<Empleado[]>($"api/empleadoes/nombre/{TextValue}");
+        
+    }
+
+    private bool _processing = false;
+
+    async Task ProcessSomething()
+    {
+       
+        _processing = true;
+        await Task.Delay(2000);
+        CargoBusqueda();
+        _processing = false;
+    }
+}

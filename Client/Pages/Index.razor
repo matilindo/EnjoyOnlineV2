@@ -1,0 +1,26 @@
+﻿@page "/"
+
+
+<MudGrid  Justify="Justify.Center">
+    <MudItem xs="3" Class="pt-1 pl-15 mt-10" >
+        <Publicaciones></Publicaciones>
+          
+    </MudItem >
+    <MudItem xs="3" Class="pa-1 mt-4">
+        <PersonalCumple></PersonalCumple>
+        
+    </MudItem>
+   
+  
+    <MudItem xs="4" Class="pa-1 mt-4">
+       
+        <Cotizaciones></Cotizaciones>
+    </MudItem>
+    <MudItem xs="2" Class="pa-1 mt-4 pr-1">
+
+        <Radios></Radios>
+    </MudItem>
+</MudGrid>
+@code {
+    public int spacing { get; set; } = 2;
+}
