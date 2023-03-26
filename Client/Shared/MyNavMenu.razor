@@ -1,17 +1,17 @@
-﻿<MudNavMenu Style="@($"color:{Colors.Shades.Black};")">
-    <MudNavLink Href="/" Match="NavLinkMatch.All"><h6 Style="color:#000000;">Dashboard</h6></MudNavLink>
-    <MudNavGroup Title="RRHH" Expanded="true">
-    <MudNavLink Href="/personal" Match="NavLinkMatch.Prefix">PERSONAL</MudNavLink>
+﻿<MudNavMenu Style="@($"color:{Colors.Shades.White};background:{Colors.Shades.Black}")">
+    <MudNavLink Href="/" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Dashboard"><h6 Style="color:#e47c04;">Dashboard</h6></MudNavLink>
+    <MudNavGroup Title="RRHH" Expanded="true" Style="background:#e47c04;" Icon="@Icons.Material.Filled.People" IconColor="Color.Dark">
+        <MudNavLink Href="/personal" Match="NavLinkMatch.Prefix" Style="background:#000000;">Personal</MudNavLink>
     </MudNavGroup>
-     <MudNavGroup Title="VENTAS" Expanded="true">
-    <MudNavLink Href="/eventos" Match="NavLinkMatch.Prefix">EVENTOS</MudNavLink>
+    <MudNavGroup Title="VENTAS" Expanded="true" Style="background:#e47c04;" Icon="@Icons.Material.Filled.Business" IconColor="Color.Dark">
+    <MudNavLink Href="/eventos" Match="NavLinkMatch.Prefix" Style="background:#000000;" >Eventos</MudNavLink>
     </MudNavGroup>
-    <MudNavLink Href="/telefonos" Match="NavLinkMatch.Prefix">TELEFONÍA</MudNavLink>
-    <MudNavLink Href="/servers" Match="NavLinkMatch.Prefix">SEGURIDAD</MudNavLink>
+    <MudNavLink Href="/telefonos" Match="NavLinkMatch.Prefix" Style="background:#e47c04;" Icon="@Icons.Material.Filled.Phone" IconColor="Color.Dark">TELEFONÍA</MudNavLink>
+    <MudNavLink Href="/seguridad" Match="NavLinkMatch.Prefix" Style="background:#e47c04;" Icon="@Icons.Material.Filled.Security" IconColor="Color.Dark">SEGURIDAD</MudNavLink>
 
-    <MudNavGroup Title="MI CUENTA" Expanded="true">
-        <MudNavLink Href="/horarios" Match="NavLinkMatch.Prefix">HORARIOS</MudNavLink>
-        <MudNavLink Href="/security" Match="NavLinkMatch.Prefix">CONTRATO</MudNavLink>
+    <MudNavGroup Title="MI CUENTA" Expanded="true" Style="background:#e47c04;" Icon="@Icons.Material.Filled.Person" IconColor="Color.Dark">
+        <MudNavLink Href="/horarios" Match="NavLinkMatch.Prefix" Style="background:#000000;">Horarios</MudNavLink>
+        <MudNavLink Href="/security" Match="NavLinkMatch.Prefix" Style="background:#000000;">Contrato</MudNavLink>
     </MudNavGroup>
 </MudNavMenu>
 

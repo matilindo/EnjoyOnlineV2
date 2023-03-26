@@ -2,7 +2,7 @@
 @inject HttpClient Http
 
 <MudPaper Class="d-flex justify-center flex-grow-1 gap-4" Elevation="0">
-    <h3><b Style="@($"color:#000000;")">Teléfonos Enjoy</b></h3>
+    <h3><b Style="@($"color:#000000;")">Teléfonos <b Style="color:#e47c04;font-family:MonoAlphabet">ENJOY</b></b></h3>
 </MudPaper>
 
 <MudSimpleTable Style="overflow-x: auto;">
@@ -10,7 +10,7 @@
         <tr>
             @foreach (var h in headings)
             {
-                <th>@h</th>
+                <th Style="color:#e47c04;">@h</th>
             }
         </tr>
     </thead>
@@ -24,7 +24,7 @@
              @foreach (var telefono in telefonos!)
         {
             <tr>
-                <td>
+                <td >
                     @telefono.Descripcion
                 </td>
                 <td>@telefono.Seccion</td>

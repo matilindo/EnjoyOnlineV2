@@ -25,19 +25,19 @@
 <MudTable ServerData="@(new Func<TableState, Task<TableData<Empleado>>>(ServerReload))"
           Dense="true" @ref="table" OnRowClick="RowClickEvent" T="Empleado">
     <ToolBarContent>
-        <MudText Typo="Typo.h6"><h3><b Style="@($"color:#000000;")">Funcionarios Enjoy</b></h3></MudText>
+        <MudText Typo="Typo.h6"> <h3><b Style="@($"color:#000000;")">Funcionarios <b Style="color:#e47c04;font-family:MonoAlphabet">ENJOY</b></b></h3></MudText>
         <MudSpacer />
         <MudTextField T="string" ValueChanged="@(s=>OnSearch(s))" Placeholder="Search" Adornment="Adornment.Start"
                       AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField> 
-        <MudSwitch @onclick="CargarListado" @bind-Checked="@Basic_Switch2" Label="Activo" Color="Color.Primary"/>
+        <MudSwitch @onclick="CargarListado" @bind-Checked="@Basic_Switch2" Label="Activo" Style="color:#e47c04;" />
 
     </ToolBarContent>
     <HeaderContent>
-        <MudTh><MudTableSortLabel SortLabel=" nr_field" T="Empleado">N° Funcionario</MudTableSortLabel></MudTh>
-        <MudTh><MudTableSortLabel SortLabel="sign_field" T="Empleado">Apellido</MudTableSortLabel></MudTh>
-        <MudTh><MudTableSortLabel SortLabel="name_field" T="Empleado">Nombre</MudTableSortLabel></MudTh>
-        <MudTh><MudTableSortLabel SortLabel="position_field" T="Empleado">Departamento</MudTableSortLabel></MudTh>
-        <MudTh><MudTableSortLabel SortLabel="mass_field" T="Empleado">Estado</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortLabel=" nr_field" T="Empleado" Style="color:#e47c04;">N° Funcionario</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortLabel="sign_field" T="Empleado" Style="color:#e47c04;">Apellido</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortLabel="name_field" T="Empleado" Style="color:#e47c04;">Nombre</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortLabel="position_field" T="Empleado" Style="color:#e47c04;">Departamento</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortLabel="mass_field" T="Empleado" Style="color:#e47c04;">Estado</MudTableSortLabel></MudTh>
     </HeaderContent>
     <RowTemplate >
         <MudTd  DataLabel="Nr" >@context.Nro_Funcionario</MudTd>
